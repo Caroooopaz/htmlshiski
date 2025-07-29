@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra Exitosa</title>
+  <style>
+    :root {
+      --success-color: #1b5e20;
+      --text-color: #333;
+      --light-text: #555;
+      --bg-color: #f4f7f9;
+      --white: #ffffff;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--bg-color);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: var(--text-color);
+      line-height: 1.5;
+    }
+    
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: clamp(30px, 5vw, 40px);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: rgba(27, 94, 32, 0.1);
+      margin-bottom: 20px;
+    }
+    
+    .icon::before {
+      content: '✓';
+      font-size: 40px;
+      color: var(--success-color);
+    }
+    
+    h1 {
+      color: var(--success-color);
+      margin-bottom: 10px;
+      font-size: clamp(18px, 2vw, 24px);
+    }
+    
+    p {
+      color: var(--light-text);
+      margin-bottom: 30px;
+      font-size: clamp(14px, 2vw, 16px);
+    }
+    
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .btn {
+      padding: 10px 18px;
+      font-size: 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      min-width: 160px;
+      text-align: center;
+    }
+    
+    .btn-outline {
+      border: 2px solid var(--success-color);
+      color: var(--success-color);
+      background: transparent;
+    }
+    
+    .btn-outline:hover {
+      background: rgba(27, 94, 32, 0.1);
+    }
+    
+    .btn-solid {
+      background: var(--success-color);
+      color: var(--white);
+    }
+    
+    .btn-solid:hover {
+      background: #144a18;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="icon" aria-hidden="true"></div>
+    <h1>¡Compra realizada exitosamente!</h1>
+    <p>Ya puedes ingresar a la plataforma. Hemos enviado un comprobante a tu correo y desde ahí podrás entrar a tu cuenta.</p>
+    <div class="actions">
+      <a href="/" class="btn btn-outline">← Volver al sitio</a>
+      <a href="/login" class="btn btn-solid">Ir a Iniciar Sesión →</a>
+    </div>
+  </main>
+</body>
+</html>

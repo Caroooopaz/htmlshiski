@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricardo García - Instructor | Shiski</title>
+  <style>
+    :root {
+      --main-color: #1b5e20; /* Verde institucional Shiski */
+      --text-color: #333;
+      --secondary-text: #666;
+      --bg-light: #f4f7f9;
+      --white: #ffffff;
+      --border-color: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-light);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .instructor-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .instructor-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
+    }
+
+    .instructor-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--main-color);
+      margin-bottom: 6px;
+    }
+
+    .instructor-title {
+      font-size: 17px;
+      font-style: italic;
+      color: var(--secondary-text);
+    }
+
+    .instructor-bio {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: var(--main-color);
+    }
+
+    @media (max-width: 600px) {
+      .instructor-card {
+        padding: 20px;
+      }
+
+      .instructor-name {
+        font-size: 22px;
+      }
+
+      .instructor-title {
+        font-size: 15px;
+      }
+
+      .instructor-bio {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="instructor-card">
+    <div class="instructor-header">
+      <div class="instructor-name">Ricardo García</div>
+      <div class="instructor-title">Especialista en Logística y Cadena de Suministro</div>
+    </div>
+
+    <div class="instructor-bio">
+      Cuenta con más de <span class="highlight">15 años de experiencia</span> en la industria logística y ha liderado proyectos de optimización de inventarios en diversas empresas. Es autor de numerosas publicaciones y conferencista internacional.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Inventarios</title>
+  <style>
+    :root {
+      --main-color: #1b5e20;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --light-bg: #f4f7f9;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--light-bg);
+      padding: 20px;
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      color: var(--main-color);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent-color);
+    }
+
+    h2, h3 {
+      color: var(--main-color);
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin: 25px 0 15px;
+    }
+
+    .intro, .description {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .highlights, .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 25px 0;
+      font-weight: 500;
+    }
+
+    .highlights span {
+      padding-left: 15px;
+      position: relative;
+    }
+
+    .highlights span::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+    }
+
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .uf {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .discount {
+      color: #e74c3c;
+    }
+
+    .cta-button {
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid var(--main-color);
+      background: transparent;
+      color: var(--main-color);
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background-color: rgba(27, 94, 32, 0.1);
+    }
+
+    .quote-button {
+      background: var(--main-color);
+      color: var(--white);
+      border: none;
+    }
+
+    .quote-button:hover {
+      background: #144a18;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #ddd;
+      margin: 30px 0;
+    }
+
+    .includes-list, .objectives-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .includes-list li, .objectives-list li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .includes-list li::before {
+      content: "-";
+      color: var(--accent-color);
+      position: absolute;
+      left: 5px;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .menu-item {
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .objectives-container {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .objectives-list {
+      column-count: 2;
+      column-gap: 30px;
+    }
+
+    .objective-item {
+      padding-left: 30px;
+      position: relative;
+      break-inside: avoid;
+    }
+
+    .checkbox {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--accent-color);
+      border-radius: 3px;
+    }
+
+    .checked {
+      background-color: var(--accent-color);
+    }
+
+    .checked::after {
+      content: "✓";
+      color: white;
+      font-size: 12px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .temario-button {
+      background: var(--main-color);
+      color: var(--white);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .temario-button:hover {
+      background: #144a18;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Gestión de Inventarios</h1>
+    <p class="intro">Domingo las técnicas esenciales para optimizar tus niveles de inventario, reducir costos y mejorar la eficiencia de tu cadena de suministro.</p>
+    <p class="description">Aprende a dominar las técnicas clave que te permitirán optimizar la gestión de inventario de forma estratégica. [...]</p>
+
+    <div class="highlights">
+      <span>20 horas</span>
+      <span>12 cupos</span>
+      <span>Certificado incluido</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="price-section">
+      <div>
+        <h2>UF 3</h2>
+        <span class="uf">10UF</span>
+        <span class="discount">10% de descuento</span>
+      </div>
+      <div class="cta-buttons">
+        <button class="cta-button quote-button">Cotiza →</button>
+        <button class="cta-button">Probar gratis ❤</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Este curso incluye:</h3>
+    <ul class="includes-list">
+      <li>Acceso de por vida a los materiales</li>
+      <li>Lecciones interactivas en vídeo</li>
+      <li>Materiales y plantilla descargables</li>
+      <li>CaseStudies reales</li>
+      <li>Certificado</li>
+      <li>Soporte 24/4</li>
+      <li>Acceso a la app</li>
+      <li>Acceso a foco de la comunidad</li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <h1>Resumen</h1>
+    <div class="menu">
+      <div class="menu-item">Temario</div>
+      <div class="menu-item">Instructor</div>
+      <div class="menu-item">Testimonios</div>
+    </div>
+    <div class="divider"></div>
+
+    <h3>Objetivos del curso</h3>
+    <p>Al finalizar este curso, los participantes serán capaces de:</p>
+    <div class="objectives-container">
+      <ul class="objectives-list">
+        <li class="objective-item"><span class="checkbox"></span>Comprender los principios fundamentales de la gestión de inventarios.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Aplicar métodos de pronóstico de demanda para planificar los niveles de inventario.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Implementar técnicas de clasificación de inventarios (ABC, XYZ) para priorizar la gestión.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Calcular y optimizar los puntos de reorden y los niveles de stock de seguridad.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Utilizar sistemas de gestión de inventarios (WMS) para mejorar la visibilidad y el control.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Evaluar el desempeño de la gestión de inventarios mediante indicadores clave (KPIs).</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Identificar las causas comunes de deficiencias en el manejo de inventarios y cómo prevenirlas.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Diseñar estrategias de reposición ajustadas a distintos tipos de productos y demanda.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Integrar prácticas de inventario justo a tiempo (JIT) para reducir costos y desperdicios.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Analizar el impacto financiero de las decisiones relacionadas con el inventario.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Coordinar la gestión de inventarios con otras áreas clave como compras y logística.</li>
+        <li class="objective-item"><span class="checkbox checked"></span>Aplicar tecnologías emergentes (como RFID o IoT) para automatizar y mejorar la gestión de inventarios.</li>
+      </ul>
+    </div>
+
+    <button class="temario-button">Ver Temario Completo</button>
+  </div>
+</body>
+</html>

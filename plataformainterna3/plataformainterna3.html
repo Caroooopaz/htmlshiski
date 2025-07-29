@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objetivos de los estudiantes - Shiski</title>
+  <style>
+    :root {
+      --primary-color: #1b5e20; /* Verde Shiski */
+      --text-color: #333;
+      --secondary-text: #666;
+      --light-gray: #f5f7fa;
+      --border-color: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--light-gray);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .testimonial {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .testimonial:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .post-time {
+      font-size: 14px;
+      color: var(--secondary-text);
+      margin-left: 10px;
+    }
+
+    .testimonial-text {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+      border-left: 3px solid var(--primary-color);
+      position: relative;
+    }
+
+    .testimonial-text::before,
+    .testimonial-text::after {
+      content: '"';
+      font-size: 24px;
+      color: var(--primary-color);
+      line-height: 0;
+      vertical-align: -5px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .testimonial-text {
+        padding: 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Objetivos de los estudiantes</h1>
+
+    <div class="testimonial">
+      <div class="user-info">
+        <span class="user-name">Sofía Martinez</span>
+        <span class="post-time">Hace 2 semanas</span>
+      </div>
+      <div class="testimonial-text">
+        Excelente curso, muy completo y práctico. El instructor explica los conceptos de forma clara y amena.
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="user-info">
+        <span class="user-name">Carlos López</span>
+        <span class="post-time">Hace 2 semanas</span>
+      </div>
+      <div class="testimonial-text">
+        El contenido es relevante y aplicable a mi trabajo. Sin embargo, me gustaría que hubiera más ejemplos prácticos.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

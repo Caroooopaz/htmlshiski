@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de compra - Shiski</title>
+    <style>
+        :root {
+            --primary-color: #27ae60; /* Verde Shiski */
+            --primary-hover: #219653;
+            --text-color: #333333;
+            --light-gray: #f5f7fa;
+            --border-color: #e0e0e0;
+            --error-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+
+        .user-info {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .user-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section, .summary-section {
+            padding: 25px;
+        }
+
+        .form-section {
+            order: 2;
+        }
+
+        .summary-section {
+            order: 1;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 0 0 20px 0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
+        }
+
+        .optional {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .order-summary th, 
+        .order-summary td {
+            padding: 12px 0;
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .order-summary th {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .order-summary td:last-child {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .total-row td {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .payment-option input {
+            margin-right: 10px;
+        }
+
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .payment-option img {
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        .coupon-section {
+            margin-bottom: 25px;
+        }
+
+        .coupon-input {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .coupon-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px 0 0 6px;
+            border-right: none;
+        }
+
+        .coupon-input button {
+            padding: 0 15px;
+            background: #eee;
+            border: 1px solid var(--border-color);
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-arrow:after {
+            content: " →";
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                flex-direction: row;
+            }
+            
+            .form-section {
+                flex: 2;
+                order: 1;
+                border-right: 1px solid var(--border-color);
+            }
+            
+            .summary-section {
+                flex: 1;
+                order: 2;
+                border-bottom: none;
+            }
+            
+            .form-row {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Carrito de compra</h1>
+            <div class="user-info">
+                Jorge Morales · <a href="#">¿No eres tú?</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <h2>Detalle de compra</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre*</label>
+                        <input id="nombre" type="text" placeholder="ej: Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos*</label>
+                        <input id="apellidos" type="text" placeholder="ej: Pérez Sánchez" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rut">RUT*</label>
+                        <input id="rut" type="text" placeholder="ej: 11111111-1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono*</label>
+                        <input id="telefono" type="tel" placeholder="ej: 912345678" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Dirección de correo electrónico*</label>
+                    <input id="email" type="email" placeholder="ej: jperez@mail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Dirección*</label>
+                    <input id="direccion" type="text" placeholder="ej: Nombre de la calle y número" required>
+                    <input type="text" placeholder="ej: Apartamento, oficina, etc" class="optional">
+                    <span class="optional">(opcional)</span>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="region">Región*</label>
+                        <select id="region" required>
+                            <option value="">Seleccione una región</option>
+                            <option selected>Región Metropolitana de Santiago</option>
+                            <!-- Otras regiones aquí -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comuna">Comuna*</label>
+                        <input id="comuna" type="text" placeholder="ej: Santiago" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="empresa">Nombre de la Empresa</label>
+                    <input id="empresa" type="text" placeholder="ej: Empresa 1">
+                    <span class="optional">(opcional)</span>
+                </div>
+            </div>
+            
+            <div class="summary-section">
+                <div class="order-summary">
+                    <h2>Tu pedido</h2>
+                    <table>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        <tr>
+                            <td>Plan Pro</td>
+                            <td>UF360</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total</td>
+                            <td>UF360</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h2>Pagar con</h2>
+                <div class="payment-method">
+                    <div class="payment-option">
+                        <input type="radio" id="webpay" name="payment" checked>
+                        <label for="webpay">
+                            Webpay
+                            <img src="https://img.webpay.cl/webpay-logo.svg" alt="Webpay">
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="coupon-section">
+                    <label for="cupon">¿Cupón de descuento?</label>
+                    <div class="coupon-input">
+                        <input id="cupon" type="text" placeholder="Ingresa tu código">
+                        <button type="button">Aplicar</button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-arrow">Realizar el pedido</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
