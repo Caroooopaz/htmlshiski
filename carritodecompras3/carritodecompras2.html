@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra Exitosa</title>
+  <style>
+    :root {
+      --success-color: #2d5016;
+      --success-light: #4a7c59;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --bg-color: #f8fafc;
+      --white: #ffffff;
+      --shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 12px 35px rgba(0, 0, 0, 0.12);
+      --border-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+   
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+   
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+   
+    .success-container {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: clamp(40px, 6vw, 60px);
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .success-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--success-color), var(--success-light));
+    }
+   
+    .success-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--success-color), var(--success-light));
+      margin-bottom: 28px;
+      position: relative;
+      animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .success-icon::after {
+      content: '';
+      position: absolute;
+      width: 36px;
+      height: 20px;
+      border: 4px solid var(--white);
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg) translateY(-2px);
+      animation: checkmark 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+    }
+
+    @keyframes scaleIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes checkmark {
+      0% {
+        width: 0;
+        height: 0;
+      }
+      50% {
+        width: 0;
+        height: 20px;
+      }
+      100% {
+        width: 36px;
+        height: 20px;
+      }
+    }
+   
+    .success-title {
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+   
+    .success-description {
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      font-size: clamp(15px, 2.5vw, 17px);
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+    }
+   
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+    }
+
+    @media (min-width: 480px) {
+      .action-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+   
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: var(--transition);
+      min-width: 180px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+   
+    .btn-secondary {
+      border-color: var(--success-color);
+      color: var(--success-color);
+      background: transparent;
+    }
+   
+    .btn-secondary:hover {
+      background: rgba(45, 80, 22, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 80, 22, 0.2);
+    }
+   
+    .btn-primary {
+      background: linear-gradient(135deg, var(--success-color), var(--success-light));
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+    }
+   
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(45, 80, 22, 0.4);
+    }
+
+    .btn-icon {
+      font-size: 16px;
+      transition: var(--transition);
+    }
+
+    .btn:hover .btn-icon.arrow-right {
+      transform: translateX(4px);
+    }
+
+    .btn:hover .btn-icon.arrow-left {
+      transform: translateX(-4px);
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 479px) {
+      .success-container {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+      }
+
+      .success-icon::after {
+        width: 28px;
+        height: 16px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        min-width: 100%;
+      }
+    }
+
+    /* Focus states for accessibility */
+    .btn:focus {
+      outline: 3px solid rgba(45, 80, 22, 0.3);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <main class="success-container" role="main">
+    <div class="success-icon" aria-hidden="true"></div>
+    
+    <h1 class="success-title">¡Compra realizada exitosamente!</h1>
+    
+    <p class="success-description">
+      Ya puedes ingresar a la plataforma. Hemos enviado un comprobante a tu correo y desde ahí podrás entrar a tu cuenta.
+    </p>
+    
+    <div class="action-buttons">
+      <a href="/" class="btn btn-secondary" aria-label="Regresar al sitio principal">
+        <span class="btn-icon arrow-left">←</span>
+        Volver al sitio
+      </a>
+      <a href="/login" class="btn btn-primary" aria-label="Ir a la página de inicio de sesión">
+        Ir a Iniciar Sesión
+        <span class="btn-icon arrow-right">→</span>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

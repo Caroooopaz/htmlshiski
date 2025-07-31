@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Inventarios</title>
+  <title>Gestión de Inventarios - Shiski</title>
   <style>
     :root {
-      --main-color: #1b5e20;
-      --accent-color: #3498db;
-      --text-color: #333;
-      --light-bg: #f4f7f9;
+      --primary-green: #2d5016;
+      --light-green: #4a7c59;
+      --accent-blue: #3498db;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --text-light: #95a5a6;
+      --bg-color: #f8fafc;
       --white: #ffffff;
+      --light-gray: #ecf0f1;
+      --border-color: #e1e8ed;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -20,281 +29,640 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: var(--light-bg);
-      padding: 20px;
-      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
       line-height: 1.6;
-      display: flex;
-      justify-content: center;
     }
 
-    .container {
-      max-width: 800px;
-      width: 100%;
-      background-color: var(--white);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    /* Header Navigation */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
     }
 
-    h1 {
-      color: var(--main-color);
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--accent-color);
-    }
-
-    h2, h3 {
-      color: var(--main-color);
-      font-weight: 600;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-
-    h3 {
-      font-size: 20px;
-      margin: 25px 0 15px;
-    }
-
-    .intro, .description {
-      font-size: 15px;
-      margin-bottom: 20px;
-    }
-
-    .highlights, .cta-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 25px 0;
-      font-weight: 500;
-    }
-
-    .highlights span {
-      padding-left: 15px;
-      position: relative;
-    }
-
-    .highlights span::before {
-      content: "-";
-      position: absolute;
-      left: 0;
-    }
-
-    .price-section {
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      padding: 0 20px;
     }
 
-    .uf {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
       font-size: 18px;
-      font-weight: 600;
+      color: var(--primary-green);
     }
 
-    .discount {
-      color: #e74c3c;
-    }
-
-    .cta-button {
-      padding: 10px 15px;
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary-green);
       border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      text-align: center;
-      border: 2px solid var(--main-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 16px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--primary-green);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-outline {
+      padding: 8px 16px;
+      border: 1px solid var(--border-color);
       background: transparent;
-      color: var(--main-color);
-      cursor: pointer;
+      color: var(--text-secondary);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .cta-button:hover {
-      background-color: rgba(27, 94, 32, 0.1);
+    .btn-outline:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
     }
 
-    .quote-button {
-      background: var(--main-color);
+    .btn-primary {
+      padding: 8px 16px;
+      background: var(--primary-green);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover {
+      background: var(--light-green);
+      transform: translateY(-1px);
+    }
+
+    /* Main Content */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+
+    .back-button:hover {
+      color: var(--primary-green);
+    }
+
+    /* Course Header */
+    .course-header {
+      margin-bottom: 32px;
+    }
+
+    .course-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .course-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .course-description {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Course Meta */
+    .course-meta {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .meta-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .price-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .price-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .price-main {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .price-original {
+      font-size: 16px;
+      color: var(--text-light);
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+
+    .discount-badge {
+      background: #e74c3c;
+      color: var(--white);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .price-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-cta {
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-cta-primary {
+      background: var(--primary-green);
       color: var(--white);
       border: none;
     }
 
-    .quote-button:hover {
-      background: #144a18;
+    .btn-cta-primary:hover {
+      background: var(--light-green);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
     }
 
-    .divider {
-      height: 1px;
-      background-color: #ddd;
-      margin: 30px 0;
+    .btn-cta-secondary {
+      background: transparent;
+      color: var(--primary-green);
+      border: 2px solid var(--primary-green);
     }
 
-    .includes-list, .objectives-list {
-      list-style-type: none;
-      padding-left: 0;
+    .btn-cta-secondary:hover {
+      background: rgba(45, 80, 22, 0.05);
     }
 
-    .includes-list li, .objectives-list li {
-      position: relative;
-      padding-left: 25px;
-      margin-bottom: 10px;
-      font-size: 15px;
+    /* Includes Section */
+    .includes-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
 
-    .includes-list li::before {
-      content: "-";
-      color: var(--accent-color);
-      position: absolute;
-      left: 5px;
-    }
-
-    .menu {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
+    .includes-title {
+      font-size: 18px;
       font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
     }
 
-    .menu-item {
-      color: var(--accent-color);
+    .includes-list {
+      list-style: none;
+    }
+
+    .includes-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .check-icon {
+      width: 16px;
+      height: 16px;
+      background: var(--primary-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Tabs */
+    .tabs-container {
+      margin-top: 48px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 32px;
+    }
+
+    .tab-button {
+      padding: 12px 24px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-weight: 500;
       cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 2px solid transparent;
     }
 
-    .objectives-container {
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 20px 0;
+    .tab-button.active {
+      color: var(--primary-green);
+      border-bottom-color: var(--primary-green);
     }
 
-    .objectives-list {
-      column-count: 2;
-      column-gap: 30px;
+    .tab-button:hover {
+      color: var(--primary-green);
+    }
+
+    /* Objectives Section */
+    .objectives-section {
+      margin-top: 32px;
+    }
+
+    .objectives-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .objectives-subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 16px;
     }
 
     .objective-item {
-      padding-left: 30px;
-      position: relative;
-      break-inside: avoid;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
     }
 
-    .checkbox {
-      position: absolute;
-      left: 0;
-      top: 2px;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--accent-color);
-      border-radius: 3px;
-    }
-
-    .checked {
-      background-color: var(--accent-color);
-    }
-
-    .checked::after {
-      content: "✓";
-      color: white;
-      font-size: 12px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .temario-button {
-      background: var(--main-color);
+    .objective-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary-green);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-green);
       color: var(--white);
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 30px;
-      text-align: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .temario-button:hover {
-      background: #144a18;
+    .objective-text {
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .main-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 16px;
+      }
+
+      .course-meta {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .objectives-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .course-title {
+        font-size: 24px;
+      }
+
+      .course-subtitle {
+        font-size: 16px;
+      }
+
+      .price-card {
+        padding: 20px;
+      }
+
+      .includes-card {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Gestión de Inventarios</h1>
-    <p class="intro">Domingo las técnicas esenciales para optimizar tus niveles de inventario, reducir costos y mejorar la eficiencia de tu cadena de suministro.</p>
-    <p class="description">Aprende a dominar las técnicas clave que te permitirán optimizar la gestión de inventario de forma estratégica. [...]</p>
-
-    <div class="highlights">
-      <span>20 horas</span>
-      <span>12 cupos</span>
-      <span>Certificado incluido</span>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="price-section">
-      <div>
-        <h2>UF 3</h2>
-        <span class="uf">10UF</span>
-        <span class="discount">10% de descuento</span>
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">🌱</div>
+        SHISKI
       </div>
-      <div class="cta-buttons">
-        <button class="cta-button quote-button">Cotiza →</button>
-        <button class="cta-button">Probar gratis ❤</button>
+      
+      <nav class="nav-menu">
+        <a href="#" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link">Cursos</a>
+        <a href="#" class="nav-link">Para empresas</a>
+        <a href="#" class="nav-link">Precios</a>
+        <a href="#" class="nav-link">Blog</a>
+        <a href="#" class="nav-link">Contacto</a>
+      </nav>
+      
+      <div class="nav-actions">
+        <a href="#" class="btn-outline">
+          Crear cuenta
+          <span>⚙</span>
+        </a>
+        <a href="#" class="btn-primary">
+          Iniciar sesión
+          <span>🔗</span>
+        </a>
       </div>
     </div>
+  </header>
 
-    <div class="divider"></div>
+  <!-- Main Content -->
+  <div class="main-container">
+    <main class="content">
+      <!-- Back Button -->
+      <a href="#" class="back-button">
+        ← Volver
+      </a>
 
-    <h3>Este curso incluye:</h3>
-    <ul class="includes-list">
-      <li>Acceso de por vida a los materiales</li>
-      <li>Lecciones interactivas en vídeo</li>
-      <li>Materiales y plantilla descargables</li>
-      <li>CaseStudies reales</li>
-      <li>Certificado</li>
-      <li>Soporte 24/4</li>
-      <li>Acceso a la app</li>
-      <li>Acceso a foco de la comunidad</li>
-    </ul>
+      <!-- Course Header -->
+      <header class="course-header">
+        <h1 class="course-title">Gestión de Inventarios</h1>
+        <p class="course-subtitle">
+          Domina las técnicas esenciales para optimizar tus niveles de inventario, reducir costos y mejorar la eficiencia de tu cadena de suministro.
+        </p>
+        <p class="course-description">
+          Aprende a dominar las técnicas clave que te permitirán optimizar la gestión de inventario de forma estratégica. Conoce cómo aplicar mejores prácticas para mantener niveles óptimos de stock, reducir el exceso y evitar quiebres que afectan la operación. Al implementar estos conocimientos, lograrás minimizar costos innecesarios asociados al almacenamiento y mejorar el flujo de productos a lo largo de toda la cadena de suministro. Esta optimización no solo incrementa la eficiencia operativa, sino que también mejora la capacidad de respuesta ante la demanda. Da un paso hacia una logística más ágil, rentable y alineada con los objetivos de tu negocio.
+        </p>
+      </header>
 
-    <div class="divider"></div>
+      <!-- Course Meta -->
+      <div class="course-meta">
+        <div class="meta-item">
+          <span class="meta-icon">🕐</span>
+          20 horas
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">👥</span>
+          12 cupos
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">🎓</span>
+          Certificado incluido
+        </div>
+      </div>
 
-    <h1>Resumen</h1>
-    <div class="menu">
-      <div class="menu-item">Temario</div>
-      <div class="menu-item">Instructor</div>
-      <div class="menu-item">Testimonios</div>
-    </div>
-    <div class="divider"></div>
+      <!-- Tabs -->
+      <div class="tabs-container">
+        <div class="tabs-nav">
+          <button class="tab-button active">Resumen</button>
+          <button class="tab-button">Temario</button>
+          <button class="tab-button">Instructor</button>
+          <button class="tab-button">Testimonios</button>
+        </div>
 
-    <h3>Objetivos del curso</h3>
-    <p>Al finalizar este curso, los participantes serán capaces de:</p>
-    <div class="objectives-container">
-      <ul class="objectives-list">
-        <li class="objective-item"><span class="checkbox"></span>Comprender los principios fundamentales de la gestión de inventarios.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Aplicar métodos de pronóstico de demanda para planificar los niveles de inventario.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Implementar técnicas de clasificación de inventarios (ABC, XYZ) para priorizar la gestión.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Calcular y optimizar los puntos de reorden y los niveles de stock de seguridad.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Utilizar sistemas de gestión de inventarios (WMS) para mejorar la visibilidad y el control.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Evaluar el desempeño de la gestión de inventarios mediante indicadores clave (KPIs).</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Identificar las causas comunes de deficiencias en el manejo de inventarios y cómo prevenirlas.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Diseñar estrategias de reposición ajustadas a distintos tipos de productos y demanda.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Integrar prácticas de inventario justo a tiempo (JIT) para reducir costos y desperdicios.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Analizar el impacto financiero de las decisiones relacionadas con el inventario.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Coordinar la gestión de inventarios con otras áreas clave como compras y logística.</li>
-        <li class="objective-item"><span class="checkbox checked"></span>Aplicar tecnologías emergentes (como RFID o IoT) para automatizar y mejorar la gestión de inventarios.</li>
-      </ul>
-    </div>
+        <!-- Objectives Section -->
+        <section class="objectives-section">
+          <h2 class="objectives-title">Objetivos del curso</h2>
+          <p class="objectives-subtitle">Al finalizar este curso, los participantes serán capaces de:</p>
+          
+          <div class="objectives-grid">
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Comprender los principios fundamentales de la gestión de inventarios.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Identificar las causas comunes de ineficiencias en el manejo de inventarios y cómo prevenirlas.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Aplicar métodos de pronóstico de demanda para planificar los niveles de inventario.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Diseñar estrategias de reposición ajustadas a distintos tipos de productos y demanda.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Implementar técnicas de clasificación de inventarios (ABC, XYZ) para priorizar la gestión.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Integrar prácticas de inventario justo a tiempo (JIT) para reducir costos y desperdicios.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Calcular y optimizar los puntos de reorden y los niveles de stock de seguridad.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Analizar el impacto financiero de las decisiones relacionadas con el inventario.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Utilizar sistemas de gestión de inventarios (WMS) para mejorar la visibilidad y el control.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Coordinar la gestión de inventarios con otras áreas clave como compras y logística.</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Evaluar el desempeño de la gestión de inventarios mediante indicadores clave (KPIs).</div>
+            </div>
+            <div class="objective-item">
+              <div class="objective-checkbox">✓</div>
+              <div class="objective-text">Aplicar tecnologías emergentes (como RFID o IoT) para automatizar y mejorar la gestión de inventarios.</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
 
-    <button class="temario-button">Ver Temario Completo</button>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Price Card -->
+      <div class="price-card">
+        <div class="price-header">
+          <div class="price-main">
+            UF 3
+            <span class="price-original">10UF</span>
+          </div>
+          <div class="discount-badge">10% de descuento</div>
+        </div>
+        
+        <div class="price-actions">
+          <a href="#" class="btn-cta btn-cta-primary">
+            Cotiza
+            →
+          </a>
+          <a href="#" class="btn-cta btn-cta-secondary">
+            Probar gratis
+            ⚙
+          </a>
+        </div>
+      </div>
+
+      <!-- Includes Card -->
+      <div class="includes-card">
+        <h3 class="includes-title">Este curso incluye:</h3>
+        <ul class="includes-list">
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Acceso de por vida a los materiales
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Lecciones interactivas en vídeo
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Materiales y plantilla descargables
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            CaseStudies reales
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Certificado
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Soporte 24/7
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Acceso a la app
+          </li>
+          <li class="includes-item">
+            <span class="check-icon">✓</span>
+            Acceso a foro de la comunidad
+          </li>
+        </ul>
+      </div>
+    </aside>
   </div>
 </body>
 </html>

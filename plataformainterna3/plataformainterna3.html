@@ -1,130 +1,855 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Objetivos de los estudiantes - Shiski</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Inventarios - Shiski</title>
   <style>
     :root {
-      --primary-color: #1b5e20; /* Verde Shiski */
+      --primary-color: #1b5e20;
+      --accent-color: #4caf50;
       --text-color: #333;
       --secondary-text: #666;
-      --light-gray: #f5f7fa;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
       --border-color: #e0e0e0;
+      --hover-color: #f5f5f5;
+      --shiski-green: #1b5e20;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: var(--light-gray);
+      background-color: var(--light-bg);
       color: var(--text-color);
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    h1 {
-      color: var(--primary-color);
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 25px;
-    }
-
-    .testimonial {
-      margin-bottom: 30px;
-      padding-bottom: 20px;
+    /* Header */
+    .header {
+      background-color: var(--white);
       border-bottom: 1px solid var(--border-color);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .testimonial:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--primary-color);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background-color: var(--primary-color);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .user-info {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      gap: 15px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .user-name {
       font-weight: 600;
-      font-size: 16px;
+      color: var(--text-color);
     }
 
-    .post-time {
+    .user-role {
+      font-size: 12px;
+      color: var(--secondary-text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 40px;
+    }
+
+    .main-content {
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .sidebar {
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .back-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .back-button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: var(--secondary-text);
+      padding: 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-button:hover {
+      background-color: var(--hover-color);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .course-subtitle {
+      font-size: 18px;
+      color: var(--secondary-text);
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .course-description {
+      font-size: 16px;
+      color: var(--text-color);
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .course-stats {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 30px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 14px;
       color: var(--secondary-text);
-      margin-left: 10px;
+    }
+
+    .stat-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+    }
+
+    .navigation-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 30px;
+    }
+
+    .nav-tab {
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--secondary-text);
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .nav-tab.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+
+    .nav-tab:hover {
+      color: var(--primary-color);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Instructor Section */
+    .instructor-section {
+      padding: 20px 0;
+    }
+
+    .instructor-card {
+      background-color: var(--light-bg);
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid var(--border-color);
+    }
+
+    .instructor-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .instructor-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+    }
+
+    .instructor-info h3 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+
+    .instructor-title {
+      font-size: 16px;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .instructor-bio {
+      font-size: 15px;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 20px 0;
+    }
+
+    .testimonial {
+      background-color: var(--light-bg);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .testimonial-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-user {
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .testimonial-time {
+      font-size: 14px;
+      color: var(--secondary-text);
     }
 
     .testimonial-text {
-      background-color: #f9f9f9;
-      padding: 15px;
-      border-radius: 8px;
       font-size: 15px;
-      line-height: 1.5;
-      border-left: 3px solid var(--primary-color);
-      position: relative;
+      color: var(--text-color);
+      line-height: 1.6;
+      font-style: italic;
     }
 
-    .testimonial-text::before,
-    .testimonial-text::after {
-      content: '"';
+    /* Course Content */
+    .section-header {
+      margin-bottom: 25px;
+    }
+
+    .section-title {
       font-size: 24px;
-      color: var(--primary-color);
-      line-height: 0;
-      vertical-align: -5px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 5px;
     }
 
-    @media (max-width: 600px) {
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--secondary-text);
+    }
+
+    .module {
+      background-color: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .module:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .module-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .module-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .module-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .module-duration {
+      font-size: 14px;
+      color: var(--secondary-text);
+    }
+
+    .module-number {
+      font-size: 14px;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .module-content {
+      padding: 0;
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .topic-item:hover {
+      background-color: var(--light-bg);
+    }
+
+    .topic-item:last-child {
+      border-bottom: none;
+    }
+
+    .play-icon {
+      width: 24px;
+      height: 24px;
+      background-color: var(--light-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--primary-color);
+    }
+
+    .topic-text {
+      flex: 1;
+      font-size: 15px;
+      color: var(--text-color);
+    }
+
+    /* Sidebar Styles */
+    .price-section {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+    }
+
+    .discount-text {
+      font-size: 14px;
+      color: #e74c3c;
+      margin-bottom: 20px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: #144a18;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+
+    .trial-text {
+      text-align: center;
+      font-size: 14px;
+      color: var(--secondary-text);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .includes-section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    }
+
+    .includes-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .includes-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
       .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
         padding: 15px;
       }
-
+      
+      .course-stats {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .main-content, .sidebar {
+        padding: 20px;
+      }
+      
       h1 {
-        font-size: 20px;
+        font-size: 28px;
       }
 
-      .testimonial-text {
-        padding: 12px;
-        font-size: 14px;
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .instructor-header {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">S</div>
+        SHISKI
+      </div>
+      <div class="user-info">
+        <div class="user-profile">
+          <div>
+            <div class="user-name">Alan Brito Delgado</div>
+            <div class="user-role">Estudiante</div>
+          </div>
+          <button style="background: none; border: none; cursor: pointer; padding: 5px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <div class="container">
-    <h1>Objetivos de los estudiantes</h1>
+    <main class="main-content">
+      <div class="back-nav">
+        <button class="back-button" onclick="history.back()">
+          ← Volver
+        </button>
+      </div>
 
-    <div class="testimonial">
-      <div class="user-info">
-        <span class="user-name">Sofía Martinez</span>
-        <span class="post-time">Hace 2 semanas</span>
-      </div>
-      <div class="testimonial-text">
-        Excelente curso, muy completo y práctico. El instructor explica los conceptos de forma clara y amena.
-      </div>
-    </div>
+      <h1>Gestión de Inventarios</h1>
+      <p class="course-subtitle">Domina las técnicas esenciales para optimizar tus niveles de inventario, reducir costos y mejorar la eficiencia de tu cadena de suministro.</p>
 
-    <div class="testimonial">
-      <div class="user-info">
-        <span class="user-name">Carlos López</span>
-        <span class="post-time">Hace 2 semanas</span>
+      <div class="course-description">
+        <p>Aprende a dominar las técnicas clave que te permitirán optimizar la gestión de inventario de forma estratégica. Conoce cómo aplicar mejores prácticas para mantener niveles óptimos de stock, reducir el exceso y evitar quiebres que afectan la operación. Al implementar estos conocimientos, lograrás disminuir costos innecesarios asociados al almacenamiento y rotación, aumentando significativamente los márgenes de ganancia. Esta optimización no solo incrementa la eficiencia operativa, sino que también mejora la capacidad de respuesta ante la demanda. Da un paso hacia una logística más ágil, rentable y alineada con los objetivos de tu negocio.</p>
       </div>
-      <div class="testimonial-text">
-        El contenido es relevante y aplicable a mi trabajo. Sin embargo, me gustaría que hubiera más ejemplos prácticos.
+
+      <div class="course-stats">
+        <div class="stat-item">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+          20 horas
+        </div>
+        <div class="stat-item">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-1.1-.9-2-2-2s-2 .9-2 2V18H4zm14.5-2.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm-.5-7.5c-1.1 0-2 .9-2 2v7h2v-2.89l2.05 2.05 1.42-1.42L19.42 15H22v-2h-2.58l.58-.59V10c0-1.1-.9-2-2-2z"/>
+          </svg>
+          12 cupos
+        </div>
+        <div class="stat-item">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Certificado incluido
+        </div>
       </div>
-    </div>
+
+      <nav class="navigation-tabs">
+        <button class="nav-tab active" data-tab="resumen">Resumen</button>
+        <button class="nav-tab" data-tab="temario">Temario</button>
+        <button class="nav-tab" data-tab="instructor">Instructor</button>
+        <button class="nav-tab" data-tab="testimonios">Testimonios</button>
+      </nav>
+
+      <!-- Resumen Tab -->
+      <div class="tab-content active" id="resumen">
+        <div class="section-header">
+          <h2 class="section-title">Temas del curso</h2>
+          <p class="section-subtitle">6 módulos • 12 clases</p>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Introducción a la gestión de inventarios</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 1</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Roles de los almacenes en la cadena de suministro</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Tipos de operaciones en una bodega</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Estructura y diseño de una bodega</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 2</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Principios de planificación de espacios</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Sistemas de almacenamiento y equipamiento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Administración de inventario</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 3</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Análisis ABC y clasificación</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Procedimiento de contado de ciclos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Operaciones en bodega</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 4</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Procesos de recepción y despacho</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Estrategias de elección de pedidos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Tecnología y sistemas</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 5</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Sistemas de gestión de bodegas</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Tecnología RFID y códigos de barra</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header">
+            <div class="module-title-row">
+              <h3 class="module-title">Liderazgo de equipos y administración</h3>
+              <span class="module-duration">2 clases | 15 minutos</span>
+            </div>
+            <div class="module-number">Módulo 6</div>
+          </div>
+          <div class="module-content">
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Construyendo equipos de alto rendimiento</span>
+            </div>
+            <div class="topic-item">
+              <div class="play-icon">▶</div>
+              <span class="topic-text">Entrenamiento y desarrollo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temario Tab -->
+      <div class="tab-content" id="temario">
+        <div class="section-header">
+          <h2 class="section-title">Temario detallado</h2>
+          <p class="section-subtitle">Contenido completo del curso</p>
+        </div>
+        <p>Aquí se mostraría el temario detallado con objetivos de aprendizaje específicos para cada módulo.</p>
+      </div>
+
+      <!-- Instructor Tab -->
+      <div class="tab-content" id="instructor">
+        <div class="instructor-section">
+          <div class="instructor-card">
+            <div class="instructor-header">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Ricardo García" class="instructor-avatar">
+              <div class="instructor-info">
+                <h3>Ricardo García</h3>
+                <p class="instructor-title">Experto en Logística y Cadena de Suministro</p>
+              </div>
+            </div>
+            <div class="instructor-bio">
+              <p>Cuenta con más de 15 años de experiencia en la industria logística y ha liderado proyectos de optimización de inventarios en diversas empresas. Es autor de numerosas publicaciones y conferencista internacional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonios Tab -->
+      <div class="tab-content" id="testimonios">
+        <div class="testimonials-section">
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <span class="testimonial-user">Sofía Martinez</span>
+              <span class="testimonial-time">Hace 2 semanas</span>
+            </div>
+            <div class="testimonial-text">
+              Excelente curso, muy completo y práctico. El instructor explica los conceptos de forma clara y amena.
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <span class="testimonial-user">Carlos López</span>
+              <span class="testimonial-time">Hace 2 semanas</span>
+            </div>
+            <div class="testimonial-text">
+              El contenido es relevante y aplicable a mi trabajo. Sin embargo, me gustaría que hubiera más ejemplos prácticos.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="price-section">
+        <div class="price">UF 3 <span style="font-size: 16px; font-weight: normal;">10UF</span></div>
+        <div class="discount-text">10% de descuento</div>
+      </div>
+
+      <div class="cta-buttons">
+        <button class="btn btn-primary">
+          Cotizar
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+          </svg>
+        </button>
+        <button class="btn btn-secondary">Probar gratis</button>
+      </div>
+
+      <div class="trial-text">
+        Probar gratis 🎁
+      </div>
+
+      <div class="includes-section">
+        <h3>Este curso incluye:</h3>
+        <ul class="includes-list">
+          <li>
+            <span class="check-icon">✓</span>
+            Acceso de por vida a los materiales
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Lecciones interactivas en video
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Materiales y plantilla descargables
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            CaseStudies reales
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Certificado
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Soporte 24/7
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Acceso a la app
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Acceso a foro de la comunidad
+          </li>
+        </ul>
+      </div>
+    </aside>
   </div>
-</body>
-</html>
+
+  <script>
+    // Funcionalidad para las

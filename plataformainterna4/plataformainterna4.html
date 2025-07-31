@@ -1,95 +1,675 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ricardo García - Instructor | Shiski</title>
-  <style>
-    :root {
-      --main-color: #1b5e20; /* Verde institucional Shiski */
-      --text-color: #333;
-      --secondary-text: #666;
-      --bg-light: #f4f7f9;
-      --white: #ffffff;
-      --border-color: #e0e0e0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventarios - Shisky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: var(--bg-light);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    .instructor-card {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: var(--white);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .instructor-header {
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 15px;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            color: #2d5a2d;
+        }
 
-    .instructor-name {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--main-color);
-      margin-bottom: 6px;
-    }
+        .logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2d5a2d;
+        }
 
-    .instructor-title {
-      font-size: 17px;
-      font-style: italic;
-      color: var(--secondary-text);
-    }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    .instructor-bio {
-      font-size: 15px;
-      line-height: 1.7;
-    }
+        .user-profile {
+            text-align: right;
+        }
 
-    .highlight {
-      font-weight: 600;
-      color: var(--main-color);
-    }
+        .user-name {
+            font-weight: 600;
+            color: #333;
+        }
 
-    @media (max-width: 600px) {
-      .instructor-card {
-        padding: 20px;
-      }
+        .user-role {
+            font-size: 0.875rem;
+            color: #666;
+        }
 
-      .instructor-name {
-        font-size: 22px;
-      }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 3rem;
+        }
 
-      .instructor-title {
-        font-size: 15px;
-      }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
 
-      .instructor-bio {
-        font-size: 14px;
-      }
-    }
-  </style>
+        .back-button:hover {
+            color: #333;
+        }
+
+        .course-header {
+            margin-bottom: 2rem;
+        }
+
+        .course-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .course-subtitle {
+            font-size: 1.125rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .course-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .meta-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .course-price {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e8f5e8;
+            color: #2d5a2d;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .discount {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: #2d5a2d;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #1e3a1e;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2d5a2d;
+            border: 2px solid #2d5a2d;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: #2d5a2d;
+            color: white;
+        }
+
+        .course-includes {
+            border-top: 1px solid #e5e5e5;
+            padding-top: 2rem;
+        }
+
+        .includes-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .includes-list {
+            list-style: none;
+        }
+
+        .includes-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .check-icon {
+            width: 16px;
+            height: 16px;
+            background: #2d5a2d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-icon::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 2rem;
+            gap: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 0;
+            cursor: pointer;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: #333;
+            border-bottom-color: #2d5a2d;
+        }
+
+        .testimonials {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .testimonials-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .testimonials-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            width: 16px;
+            height: 16px;
+            background: #ffd700;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .rating-text {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .testimonial {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .testimonial-meta {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-date {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .testimonial-star {
+            width: 14px;
+            height: 14px;
+            background: #e5e5e5;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .testimonial-star.filled {
+            background: #ffd700;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e5e5e5;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #333;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 2rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .course-title {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                position: static;
+                order: -1;
+            }
+
+            .tabs {
+                overflow-x: auto;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="instructor-card">
-    <div class="instructor-header">
-      <div class="instructor-name">Ricardo García</div>
-      <div class="instructor-title">Especialista en Logística y Cadena de Suministro</div>
+    <header class="header">
+        <div class="logo">
+            <div style="width: 32px; height: 32px; background: #2d5a2d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">S</div>
+            <span>Shisky</span>
+        </div>
+        <div class="user-info">
+            <div class="user-profile">
+                <div class="user-name">Alan Brito Delgado</div>
+                <div class="user-role">Estudiante</div>
+            </div>
+            <button style="background: none; border: none; cursor: pointer; padding: 0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18m-9-9l9 9-9 9"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <a href="#" class="back-button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5m7 7l-7-7 7-7"/>
+                </svg>
+                Volver
+            </a>
+
+            <div class="course-header">
+                <h1 class="course-title">Gestión de Inventarios</h1>
+                <p class="course-subtitle">
+                    Domina las técnicas esenciales para optimizar tus niveles de inventario, reducir costos y mejorar la eficiencia de tu cadena de suministro.
+                </p>
+            </div>
+
+            <div class="course-meta">
+                <div class="meta-item">
+                    <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                    20 horas
+                </div>
+                <div class="meta-item">
+                    <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    12 cupos
+                </div>
+                <div class="meta-item">
+                    <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Certificado incluido
+                </div>
+            </div>
+
+            <div class="course-description">
+                <p>Aprende a dominar las técnicas clave que te permitirán optimizar la gestión de inventario de forma estratégica. Conoce cómo aplicar mejores prácticas para mantener niveles óptimos de stock, reducir el exceso y evitar quiebres que afectan la operación. Al implementar estos conocimientos, lograrás disminuir costos innecesarios asociados al almacenamiento y mejorar el flujo de productos a lo largo de toda la cadena de suministro. Esta optimización no solo incrementa la eficiencia operativa, sino que también mejora la capacidad de respuesta ante la demanda. Da un paso hacia una logística más ágil, rentable y alineada con los objetivos de tu negocio.</p>
+            </div>
+
+            <div class="tabs">
+                <div class="tab">Resumen</div>
+                <div class="tab">Temario</div>
+                <div class="tab">Instructor</div>
+                <div class="tab active">Testimonios</div>
+            </div>
+
+            <div class="testimonials">
+                <div class="testimonials-header">
+                    <h2 class="testimonials-title">Opiniones de los estudiantes</h2>
+                    <div class="rating">
+                        <div class="stars">
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star" style="opacity: 0.3;"></div>
+                        </div>
+                        <span class="rating-text">3.8</span>
+                        <span class="rating-count">(320 opiniones)</span>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="avatar">SM</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-name">Sofía Martínez</div>
+                            <div class="testimonial-date">Hace 2 semanas</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Excelente curso, muy completo y práctico. El instructor explica los conceptos de forma clara y amena."</p>
+                    <div class="testimonial-rating">
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star"></div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">CL</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-name">Carlos López</div>
+                            <div class="testimonial-date">Hace 2 semanas</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"El contenido es relevante y aplicable a mi trabajo. Sin embargo, me gustaría que hubiera más ejemplos prácticos."</p>
+                    <div class="testimonial-rating">
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star filled"></div>
+                        <div class="testimonial-star"></div>
+                        <div class="testimonial-star"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="course-price">
+                <div class="price-badge">
+                    UF 3
+                    <span style="background: #2d5a2d; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">10UF</span>
+                </div>
+                <div class="discount">10% de descuento</div>
+            </div>
+
+            <div class="cta-buttons">
+                <button class="btn-primary">
+                    Cotiza 
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14m-7-7l7 7-7 7"/>
+                    </svg>
+                </button>
+                <button class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4"/>
+                        <path d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    Probar gratis
+                </button>
+            </div>
+
+            <div class="course-includes">
+                <h3 class="includes-title">Este curso incluye:</h3>
+                <ul class="includes-list">
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Acceso de por vida a los materiales</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Lecciones interactivas en video</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Materiales y plantilla descargables</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>CaseStudies reales</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Certificado</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Soporte 24/4</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Acceso a la app</span>
+                    </li>
+                    <li>
+                        <div class="check-icon"></div>
+                        <span>Acceso a foro de la comunidad</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
     </div>
 
-    <div class="instructor-bio">
-      Cuenta con más de <span class="highlight">15 años de experiencia</span> en la industria logística y ha liderado proyectos de optimización de inventarios en diversas empresas. Es autor de numerosas publicaciones y conferencista internacional.
-    </div>
-  </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Términos de servicios</a>
+                <a href="#" class="footer-link">Política de privacidad</a>
+                <a href="#" class="footer-link">Contáctanos</a>
+            </div>
+            <div class="copyright">
+                ©2025 Shisky. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

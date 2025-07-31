@@ -5,365 +5,771 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de compra - Shiski</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary-color: #27ae60; /* Verde Shiski */
-            --primary-hover: #219653;
-            --text-color: #333333;
-            --light-gray: #f5f7fa;
-            --border-color: #e0e0e0;
-            --error-color: #e74c3c;
+            /* Colores principales */
+            --primary-green: #214A21;
+            --primary-green-hover: #1a3d1a;
+            --accent-green: #27ae60;
+            --text-primary: #334155;
+            --text-secondary: #64748B;
+            --background-gray: #F8FAFC;
+            --white: #FFFFFF;
+            --border-light: #E2E8F0;
+            --error-red: #e74c3c;
+            --success-green: #27ae60;
+            
+            /* Espaciado */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-2xl: 32px;
+            --spacing-3xl: 48px;
+            
+            /* Bordes y sombras */
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            
+            /* Tipografía */
+            --font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 28px;
         }
-        
+
+        /* Reset y base */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--light-gray);
-            color: var(--text-color);
-            line-height: 1.5;
+            font-family: var(--font-family);
+            background-color: var(--background-gray);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
+        /* Utilidades de layout */
         .container {
-            display: flex;
-            flex-direction: column;
-            max-width: 1000px;
+            max-width: 1152px;
             margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 0 var(--spacing-xl);
         }
 
-        .header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-sm {
+            gap: var(--spacing-sm);
+        }
+
+        .gap-md {
+            gap: var(--spacing-md);
+        }
+
+        .gap-lg {
+            gap: var(--spacing-lg);
+        }
+
+        .gap-xl {
+            gap: var(--spacing-xl);
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .col-span-2 {
+            grid-column: span 2 / span 2;
+        }
+
+        /* Componentes específicos */
+        .navbar {
+            background: var(--white);
+            padding: var(--spacing-md) 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--background-gray);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .main-content {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .page-header {
             text-align: center;
+            margin-bottom: var(--spacing-3xl);
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 22px;
-            color: var(--primary-color);
+        .page-title {
+            font-size: var(--font-size-3xl);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
         }
 
         .user-info {
-            font-size: 14px;
-            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
         }
 
         .user-info a {
-            color: var(--primary-color);
+            color: var(--primary-green);
             text-decoration: none;
             font-weight: 500;
         }
 
-        .content {
-            display: flex;
-            flex-direction: column;
+        .user-info a:hover {
+            color: var(--accent-green);
         }
 
-        .form-section, .summary-section {
-            padding: 25px;
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-xl);
         }
 
-        .form-section {
-            order: 2;
+        .card {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
         }
 
-        .summary-section {
-            order: 1;
-            background-color: #f9f9f9;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        h2 {
-            font-size: 18px;
-            margin: 0 0 20px 0;
-            color: var(--text-color);
+        .card-title {
+            font-size: var(--font-size-2xl);
             font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: var(--spacing-xl);
         }
 
         .form-row {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
         }
 
         .form-group {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
         }
 
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 8px;
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: var(--font-size-sm);
             font-weight: 500;
+            color: var(--text-primary);
         }
 
-        .form-group input, 
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            font-size: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            box-sizing: border-box;
+        .required {
+            color: var(--error-red);
         }
 
-        .form-group input:focus, 
-        .form-group select:focus {
+        .form-input,
+        .form-select {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            background: var(--white);
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
         }
 
-        .optional {
-            color: #888;
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .helper-text {
             font-size: 13px;
-            margin-top: 5px;
+            color: var(--text-secondary);
         }
 
-        .order-summary table {
+        .order-summary {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .summary-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 25px;
         }
 
-        .order-summary th, 
-        .order-summary td {
-            padding: 12px 0;
-            font-size: 14px;
+        .summary-table th {
+            padding: var(--spacing-md) 0;
+            font-size: var(--font-size-base);
+            font-weight: 700;
+            color: var(--text-primary);
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .order-summary th {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .order-summary td:last-child {
+        .summary-table th:last-child {
             text-align: right;
+        }
+
+        .summary-table td {
+            padding: var(--spacing-md) 0;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .summary-table td:last-child {
+            text-align: right;
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         .total-row td {
-            font-weight: 600;
-            font-size: 15px;
+            font-size: var(--font-size-base);
+            font-weight: 700;
+            color: var(--text-primary);
+            border-bottom: none;
+            padding-top: var(--spacing-lg);
         }
 
-        .payment-method {
-            margin-bottom: 20px;
+        .payment-methods {
+            margin-bottom: var(--spacing-xl);
         }
 
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 12px;
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin-bottom: 10px;
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--white);
+            margin-bottom: var(--spacing-md);
         }
 
-        .payment-option input {
-            margin-right: 10px;
+        .payment-option:hover {
+            border-color: var(--accent-green);
+            background: rgba(39, 174, 96, 0.02);
         }
 
-        .payment-option label {
+        .payment-option input[type="radio"] {
+            margin-right: var(--spacing-md);
+            accent-color: var(--accent-green);
+        }
+
+        .payment-label {
             display: flex;
             align-items: center;
-            width: 100%;
-        }
-
-        .payment-option img {
-            height: 20px;
-            margin-left: 10px;
+            gap: var(--spacing-md);
+            font-weight: 500;
+            flex: 1;
         }
 
         .coupon-section {
-            margin-bottom: 25px;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .coupon-label {
+            font-size: var(--font-size-sm);
+            color: var(--primary-green);
+            font-weight: 500;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .coupon-input-group {
+            display: flex;
         }
 
         .coupon-input {
-            display: flex;
-            margin-top: 10px;
-        }
-
-        .coupon-input input {
             flex: 1;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px 0 0 6px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
             border-right: none;
+            font-size: var(--font-size-sm);
         }
 
-        .coupon-input button {
-            padding: 0 15px;
-            background: #eee;
-            border: 1px solid var(--border-color);
-            border-radius: 0 6px 6px 0;
+        .coupon-button {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--border-light);
+            border: 1px solid var(--border-light);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            font-size: var(--font-size-sm);
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .btn {
-            display: block;
+        .coupon-button:hover {
+            background: var(--text-secondary);
+            color: var(--white);
+        }
+
+        .btn-primary {
             width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background: var(--primary-green);
+            color: var(--white);
             border: none;
-            border-radius: 6px;
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-base);
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
         }
 
-        .btn:hover {
-            background-color: var(--primary-hover);
+        .btn-primary:hover {
+            background: var(--primary-green-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .btn-arrow:after {
-            content: " →";
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--border-light);
+            padding: var(--spacing-3xl) 0;
+            margin-top: auto;
         }
 
-        @media (min-width: 768px) {
-            .content {
-                flex-direction: row;
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            margin: 0 var(--spacing-xl);
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-green);
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
             }
-            
-            .form-section {
-                flex: 2;
-                order: 1;
-                border-right: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-lg);
             }
-            
-            .summary-section {
-                flex: 1;
-                order: 2;
-                border-bottom: none;
+
+            .main-content {
+                padding: var(--spacing-xl) 0;
             }
-            
+
+            .card {
+                padding: var(--spacing-xl);
+            }
+
             .form-row {
-                flex-direction: row;
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: var(--font-size-2xl);
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+
+            .footer-link {
+                display: block;
+                margin: var(--spacing-sm) 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar .flex {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Carrito de compra</h1>
-            <div class="user-info">
-                Jorge Morales · <a href="#">¿No eres tú?</a>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="flex justify-between items-center">
+                <a href="#" class="logo">Shiski</a>
+                <nav>
+                    <ul class="nav-menu flex gap-sm">
+                        <li><a href="#" class="nav-item">Inicio</a></li>
+                        <li><a href="#" class="nav-item active">Carrito</a></li>
+                        <li><a href="#" class="nav-item">Planes</a></li>
+                        <li><a href="#" class="nav-item">Contacto</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        
-        <div class="content">
-            <div class="form-section">
-                <h2>Detalle de compra</h2>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nombre">Nombre*</label>
-                        <input id="nombre" type="text" placeholder="ej: Juan" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos*</label>
-                        <input id="apellidos" type="text" placeholder="ej: Pérez Sánchez" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="rut">RUT*</label>
-                        <input id="rut" type="text" placeholder="ej: 11111111-1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono*</label>
-                        <input id="telefono" type="tel" placeholder="ej: 912345678" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Dirección de correo electrónico*</label>
-                    <input id="email" type="email" placeholder="ej: jperez@mail.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="direccion">Dirección*</label>
-                    <input id="direccion" type="text" placeholder="ej: Nombre de la calle y número" required>
-                    <input type="text" placeholder="ej: Apartamento, oficina, etc" class="optional">
-                    <span class="optional">(opcional)</span>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="region">Región*</label>
-                        <select id="region" required>
-                            <option value="">Seleccione una región</option>
-                            <option selected>Región Metropolitana de Santiago</option>
-                            <!-- Otras regiones aquí -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="comuna">Comuna*</label>
-                        <input id="comuna" type="text" placeholder="ej: Santiago" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="empresa">Nombre de la Empresa</label>
-                    <input id="empresa" type="text" placeholder="ej: Empresa 1">
-                    <span class="optional">(opcional)</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Carrito de compra</h1>
+                <div class="user-info flex items-center justify-center gap-sm">
+                    <span>Jorge Morales</span>
+                    <span>|</span>
+                    <a href="#">¿No eres tú?</a>
                 </div>
             </div>
-            
-            <div class="summary-section">
-                <div class="order-summary">
-                    <h2>Tu pedido</h2>
-                    <table>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Subtotal</th>
-                        </tr>
-                        <tr>
-                            <td>Plan Pro</td>
-                            <td>UF360</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>Total</td>
-                            <td>UF360</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h2>Pagar con</h2>
-                <div class="payment-method">
-                    <div class="payment-option">
-                        <input type="radio" id="webpay" name="payment" checked>
-                        <label for="webpay">
-                            Webpay
-                            <img src="https://img.webpay.cl/webpay-logo.svg" alt="Webpay">
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="coupon-section">
-                    <label for="cupon">¿Cupón de descuento?</label>
-                    <div class="coupon-input">
-                        <input id="cupon" type="text" placeholder="Ingresa tu código">
-                        <button type="button">Aplicar</button>
-                    </div>
-                </div>
-                
-                <button class="btn btn-arrow">Realizar el pedido</button>
+
+            <!-- Checkout Layout -->
+            <div class="checkout-layout">
+                <!-- Purchase Details Form -->
+                <section class="card">
+                    <h2 class="card-title">Detalle de compra</h2>
+                    
+                    <form class="form-grid" id="checkout-form">
+                        <!-- Name Fields -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">
+                                    Nombre<span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="firstName" 
+                                    name="firstName"
+                                    class="form-input" 
+                                    placeholder="ej: Juan" 
+                                    required 
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">
+                                    Apellidos<span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="lastName" 
+                                    name="lastName"
+                                    class="form-input" 
+                                    placeholder="ej: Pérez Sánchez" 
+                                    required 
+                                />
+                            </div>
+                        </div>
+
+                        <!-- ID and Phone -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="rut">
+                                    RUT<span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="rut" 
+                                    name="rut"
+                                    class="form-input" 
+                                    placeholder="ej: 11111111-1" 
+                                    maxlength="12"
+                                    required 
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">
+                                    Teléfono<span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone"
+                                    class="form-input" 
+                                    placeholder="ej: 912345678" 
+                                    maxlength="9"
+                                    required 
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="email">
+                                Dirección de correo electrónico<span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="form-input" 
+                                placeholder="ej: jperez@mail.com" 
+                                required 
+                            />
+                        </div>
+
+                        <!-- Address -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="address">
+                                Dirección<span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="address" 
+                                name="address"
+                                class="form-input" 
+                                placeholder="ej: Nombre de la calle y número" 
+                                required 
+                            />
+                            <input 
+                                type="text" 
+                                id="addressLine2" 
+                                name="addressLine2"
+                                class="form-input" 
+                                placeholder="ej: Apartamento, oficina, etc (opcional)"
+                            />
+                            <span class="helper-text">(opcional)</span>
+                        </div>
+
+                        <!-- Region and City -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="region">
+                                    Región<span class="required">*</span>
+                                </label>
+                                <select id="region" name="region" class="form-select" required>
+                                    <option value="">Seleccione una región</option>
+                                    <option value="metropolitana" selected>Región Metropolitana de Santiago</option>
+                                    <option value="valparaiso">Región de Valparaíso</option>
+                                    <option value="biobio">Región del Biobío</option>
+                                    <option value="araucania">Región de la Araucanía</option>
+                                    <option value="los-lagos">Región de Los Lagos</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="city">
+                                    Comuna<span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="city" 
+                                    name="city"
+                                    class="form-input" 
+                                    placeholder="ej: Santiago" 
+                                    required 
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Company (Optional) -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="company">
+                                Nombre de la Empresa
+                            </label>
+                            <input 
+                                type="text" 
+                                id="company" 
+                                name="company"
+                                class="form-input" 
+                                placeholder="ej: Empresa 1"
+                            />
+                            <span class="helper-text">(opcional)</span>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Order Summary and Payment -->
+                <aside class="flex flex-col gap-xl">
+                    <!-- Order Summary -->
+                    <section class="card">
+                        <h2 class="card-title">Tu pedido</h2>
+                        <div class="order-summary">
+                            <table class="summary-table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Plan Pro</td>
+                                        <td>UF360</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Total</td>
+                                        <td>UF360</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Payment and Checkout -->
+                    <section class="card">
+                        <h2 class="card-title">Pagar con</h2>
+                        
+                        <!-- Payment Methods -->
+                        <div class="payment-methods">
+                            <label class="payment-option">
+                                <input 
+                                    type="radio" 
+                                    name="paymentMethod" 
+                                    value="webpay" 
+                                    checked 
+                                />
+                                <div class="payment-label">
+                                    <span>Webpay</span>
+                                    <img 
+                                        src="https://img.webpay.cl/webpay-logo.svg" 
+                                        alt="Webpay" 
+                                        height="24"
+                                    />
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Coupon Section -->
+                        <div class="coupon-section">
+                            <label class="coupon-label" for="couponCode">
+                                ¿Cupón de descuento?
+                            </label>
+                            <div class="coupon-input-group">
+                                <input 
+                                    type="text" 
+                                    id="couponCode" 
+                                    name="couponCode"
+                                    class="coupon-input" 
+                                    placeholder="Ingresa tu código"
+                                />
+                                <button type="button" class="coupon-button">
+                                    Aplicar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Checkout Button -->
+                        <button type="submit" form="checkout-form" class="btn-primary">
+                            <span>Realizar el pedido</span>
+                            <span>→</span>
+                        </button>
+                    </section>
+                </aside>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Términos de servicios</a>
+                    <a href="#" class="footer-link">Política de privacidad</a>
+                    <a href="#" class="footer-link">Contáctanos</a>
+                </div>
+                <div class="footer-copyright">
+                    ©2025 Shiski. Todos los derechos reservados
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
